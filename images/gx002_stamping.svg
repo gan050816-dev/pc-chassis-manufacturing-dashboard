@@ -1,0 +1,47 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Minimalist Technical Sketch Style -->
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e1e4e8" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="300" fill="white" />
+  <rect width="400" height="300" fill="url(#grid)" />
+  
+  <!-- Main Machine Frame (Strokes only) -->
+  <g stroke="#24292f" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Base -->
+    <rect x="80" y="240" width="240" height="30" />
+    <line x1="80" y1="240" x2="60" y2="270" />
+    <line x1="320" y1="240" x2="340" y2="270" />
+    <line x1="60" y1="270" x2="340" y2="270" />
+    
+    <!-- Columns -->
+    <rect x="100" y="50" width="30" height="190" />
+    <rect x="270" y="50" width="30" height="190" />
+    
+    <!-- Top Header -->
+    <rect x="90" y="30" width="220" height="40" />
+    
+    <!-- Moving Ram -->
+    <rect x="140" y="80" width="120" height="80" fill="white">
+      <animate attributeName="height" values="80; 110; 80" dur="2s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bed -->
+    <rect x="140" y="220" width="120" height="20" />
+    
+    <!-- Simple Die -->
+    <path d="M160 220 L160 210 L240 210 L240 220" />
+  </g>
+  
+  <!-- Annotations / Dimensions style -->
+  <g stroke="#57606a" stroke-width="1" stroke-dasharray="4 2">
+    <line x1="310" y1="50" x2="330" y2="50" />
+    <line x1="310" y1="240" x2="330" y2="240" />
+    <line x1="325" y1="50" x2="325" y2="240" />
+  </g>
+  
+  <text x="340" y="150" fill="#57606a" font-family="monospace" font-size="10" transform="rotate(90, 340, 150)">HEIGHT: 1900mm</text>
+  <text x="20" y="30" fill="#24292f" font-family="sans-serif" font-weight="bold" font-size="14">FIG 01. HYDRAULIC PRESS</text>
+</svg>

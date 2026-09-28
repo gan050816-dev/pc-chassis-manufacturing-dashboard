@@ -1,0 +1,40 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e1e4e8" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="300" fill="white" />
+  <rect width="400" height="300" fill="url(#grid)" />
+
+  <g stroke="#24292f" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Conveyor -->
+    <path d="M20 220 L380 220 L360 250 L40 250 Z" />
+    
+    <!-- Camera Mount -->
+    <line x1="100" y1="220" x2="100" y2="50" />
+    <line x1="100" y1="50" x2="200" y2="50" />
+    
+    <!-- Camera -->
+    <rect x="180" y="40" width="40" height="60" fill="white" />
+    <line x1="200" y1="100" x2="200" y2="80" /> <!-- Lens -->
+    
+    <!-- Field of View (Dashed) -->
+    <line x1="200" y1="100" x2="160" y2="220" stroke-dasharray="4 2" stroke="#57606a">
+        <animate attributeName="stroke-dashoffset" from="0" to="12" dur="1s" repeatCount="indefinite" />
+    </line>
+    <line x1="200" y1="100" x2="240" y2="220" stroke-dasharray="4 2" stroke="#57606a">
+        <animate attributeName="stroke-dashoffset" from="0" to="12" dur="1s" repeatCount="indefinite" />
+    </line>
+    
+    <!-- Product -->
+    <rect x="180" y="200" width="40" height="20" fill="white" />
+    
+    <!-- Monitor info -->
+    <rect x="280" y="100" width="100" height="70" />
+    <line x1="290" y1="120" x2="360" y2="120" stroke-width="1" />
+    <line x1="290" y1="140" x2="340" y2="140" stroke-width="1" />
+  </g>
+  
+  <text x="20" y="30" fill="#24292f" font-family="sans-serif" font-weight="bold" font-size="14">FIG 04. VISION SYSTEM</text>
+</svg>

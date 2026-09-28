@@ -1,0 +1,40 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e1e4e8" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="300" fill="white" />
+  <rect width="400" height="300" fill="url(#grid)" />
+
+  <g stroke="#24292f" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Spray Booth Frame -->
+    <rect x="50" y="50" width="300" height="200" />
+    <line x1="50" y1="50" x2="80" y2="30" />
+    <line x1="350" y1="50" x2="380" y2="30" />
+    <line x1="380" y1="30" x2="380" y2="230" />
+    <line x1="350" y1="250" x2="380" y2="230" />
+    
+    <!-- Item Conveyor Line -->
+    <line x1="50" y1="180" x2="350" y2="180" stroke-dasharray="5 5" stroke-width="1"/>
+    
+    <!-- Hanging Item -->
+    <rect x="180" y="140" width="40" height="40" fill="white" />
+    <line x1="200" y1="140" x2="200" y2="100" />
+    <circle cx="200" cy="100" r="3" />
+    
+    <!-- Nozzle Arm -->
+    <path d="M100 250 L120 150 L160 150" />
+    <circle cx="100" cy="250" r="5" fill="#24292f" />
+    
+    <!-- Spray Cone (Animated) -->
+    <path d="M160 150 L200 140" stroke-dasharray="2 2" stroke="#57606a">
+        <animate attributeName="stroke-dashoffset" from="0" to="10" dur="0.5s" repeatCount="indefinite" />
+    </path>
+    <path d="M160 150 L200 180" stroke-dasharray="2 2" stroke="#57606a">
+         <animate attributeName="stroke-dashoffset" from="0" to="10" dur="0.5s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <text x="20" y="30" fill="#24292f" font-family="sans-serif" font-weight="bold" font-size="14">FIG 02. COATING BOOTH</text>
+</svg>

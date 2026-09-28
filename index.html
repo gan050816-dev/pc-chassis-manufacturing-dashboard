@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生产工序实时监控看板</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1>生产工序实时监控看板</h1>
+                <div class="header-meta">
+                    <span id="current-time">--:--:--</span>
+                    <span class="status-badge running" id="system-status">产线运行中</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button id="toggle-btn" class="control-btn stop">
+                    <span class="icon">⏸</span> 停止产线
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Process Flow -->
+        <main class="process-flow">
+            <!-- GX002 冲压 -->
+            <div class="process-card clickable" id="gx002" onclick="openModal('gx002')">
+                <div class="card-header">
+                    <span class="process-code">GX002</span>
+                    <h2>冲压</h2>
+                </div>
+                <!-- ... icon ... -->
+                <div class="process-icon stamping-anim">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 21h12V9H6v12z" stroke-opacity="0.5" />
+                        <rect x="8" y="10" width="8" height="6" class="press-head" fill="currentColor" />
+                    </svg>
+                </div>
+                <div class="workforce-info">
+                    <span class="wf-item">👥 人员: 10人</span>
+                    <span class="wf-item">📅 班组: 3组</span>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-item production">
+                        <label>实时产量</label>
+                        <span class="value" data-type="produced">0</span>
+                    </div>
+                    <div class="metric-item defect">
+                        <label>不合格数</label>
+                        <span class="value" data-type="defects">0</span>
+                    </div>
+                    <div class="metric-item speed">
+                        <label>生产速度</label>
+                        <span class="value small" data-type="speed">0</span>
+                        <span class="unit">pcs/h</span>
+                    </div>
+                    <div class="metric-item cycle">
+                        <label>节拍时间</label>
+                        <span class="value small" data-type="cycle">0s</span>
+                    </div>
+                </div>
+                <!-- Rate -->
+                <div class="quality-check">
+                    <span class="check-point">🔍 尺寸检查</span>
+                    <div class="yield-rate">合格率: <span data-type="rate">100%</span></div>
+                </div>
+            </div>
+
+            <div class="flow-arrow">➜</div>
+
+            <!-- GX004 喷涂 -->
+            <div class="process-card clickable" id="gx004" onclick="openModal('gx004')">
+                <div class="card-header">
+                    <span class="process-code">GX004</span>
+                    <h2>喷涂</h2>
+                </div>
+                <div class="process-icon spray-anim">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="4" y="6" width="10" height="14" rx="1" />
+                        <path d="M19 11a2 2 0 0 1-2 2h-1v4h-2v-4h-1a2 2 0 0 1-2-2V7h8v4z" class="spray-gun" />
+                    </svg>
+                </div>
+                <div class="workforce-info">
+                    <span class="wf-item">👥 人员: 10人</span>
+                    <span class="wf-item">📅 班组: 3组</span>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-item production">
+                        <label>实时产量</label>
+                        <span class="value" data-type="produced">0</span>
+                    </div>
+                    <div class="metric-item defect">
+                        <label>不合格数</label>
+                        <span class="value" data-type="defects">0</span>
+                    </div>
+                    <div class="metric-item speed">
+                        <label>生产速度</label>
+                        <span class="value small" data-type="speed">0</span>
+                        <span class="unit">pcs/h</span>
+                    </div>
+                    <div class="metric-item cycle">
+                        <label>节拍时间</label>
+                        <span class="value small" data-type="cycle">0s</span>
+                    </div>
+                </div>
+                <div class="quality-check">
+                    <span class="check-point">🔍 表面检查</span>
+                    <div class="yield-rate">合格率: <span data-type="rate">100%</span></div>
+                </div>
+            </div>
+
+            <div class="flow-arrow">➜</div>
+
+            <!-- GX005 组装 -->
+            <div class="process-card clickable" id="gx005" onclick="openModal('gx005')">
+                <div class="card-header">
+                    <span class="process-code">GX005</span>
+                    <h2>组装</h2>
+                </div>
+                <div class="process-icon assembly-anim">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3" class="gear-1" />
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82..." class="gear-1" stroke-dasharray="2 2" />
+                    </svg>
+                </div>
+                <div class="workforce-info">
+                    <span class="wf-item">👥 人员: 10人</span>
+                    <span class="wf-item">📅 班组: 3组</span>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-item production">
+                        <label>实时产量</label>
+                        <span class="value" data-type="produced">0</span>
+                    </div>
+                    <div class="metric-item defect">
+                        <label>不合格数</label>
+                        <span class="value" data-type="defects">0</span>
+                    </div>
+                    <div class="metric-item speed">
+                        <label>生产速度</label>
+                        <span class="value small" data-type="speed">0</span>
+                        <span class="unit">pcs/h</span>
+                    </div>
+                    <div class="metric-item cycle">
+                        <label>节拍时间</label>
+                        <span class="value small" data-type="cycle">0s</span>
+                    </div>
+                </div>
+                <div class="quality-check">
+                    <span class="check-point">🔍 扭矩检查</span>
+                    <div class="yield-rate">合格率: <span data-type="rate">100%</span></div>
+                </div>
+            </div>
+
+            <div class="flow-arrow">➜</div>
+
+            <!-- GX006 最终质检 -->
+            <div class="process-card clickable" id="gx006" onclick="openModal('gx006')">
+                <div class="card-header">
+                    <span class="process-code">GX006</span>
+                    <h2>最终质检</h2>
+                </div>
+                <div class="process-icon qc-anim">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 4 12 14.01 9 11.01" class="check-mark" />
+                        <circle cx="12" cy="12" r="9" class="scan-ring" stroke-dasharray="4 4" />
+                    </svg>
+                </div>
+                <div class="workforce-info">
+                    <span class="wf-item">👥 人员: 10人</span>
+                    <span class="wf-item">📅 班组: 3组</span>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-item production">
+                        <label>实时产量</label>
+                        <span class="value" data-type="produced">0</span>
+                    </div>
+                    <div class="metric-item defect">
+                        <label>不合格数</label>
+                        <span class="value" data-type="defects">0</span>
+                    </div>
+                    <div class="metric-item speed">
+                        <label>生产速度</label>
+                        <span class="value small" data-type="speed">0</span>
+                        <span class="unit">pcs/h</span>
+                    </div>
+                    <div class="metric-item cycle">
+                        <label>节拍时间</label>
+                        <span class="value small" data-type="cycle">0s</span>
+                    </div>
+                </div>
+                <div class="quality-check">
+                    <span class="check-point">🔍 质量合格</span>
+                    <div class="yield-rate">合格率: <span data-type="rate">100%</span></div>
+                </div>
+            </div>
+
+            <div class="flow-arrow">➜</div>
+
+            <!-- GX007 包装 -->
+            <div class="process-card clickable" id="gx007" onclick="openModal('gx007')">
+                <div class="card-header">
+                    <span class="process-code">GX007</span>
+                    <h2>包装</h2>
+                </div>
+                <div class="process-icon packing-anim">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96" class="box-lid" />
+                        <line x1="12" y1="22.08" x2="12" y2="12" class="box-seam" />
+                    </svg>
+                </div>
+                <div class="workforce-info">
+                    <span class="wf-item">👥 人员: 10人</span>
+                    <span class="wf-item">📅 班组: 3组</span>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-item production">
+                        <label>实时产量</label>
+                        <span class="value" data-type="produced">0</span>
+                    </div>
+                    <div class="metric-item defect">
+                        <label>不合格数</label>
+                        <span class="value" data-type="defects">0</span>
+                    </div>
+                    <div class="metric-item speed">
+                        <label>生产速度</label>
+                        <span class="value small" data-type="speed">0</span>
+                        <span class="unit">pcs/h</span>
+                    </div>
+                    <div class="metric-item cycle">
+                        <label>节拍时间</label>
+                        <span class="value small" data-type="cycle">0s</span>
+                    </div>
+                </div>
+                <div class="quality-check">
+                    <span class="check-point">🔍 包装/重量检查</span>
+                    <div class="yield-rate">合格率: <span data-type="rate">100%</span></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Lower Dashboard Section -->
+        <section class="lower-dashboard">
+            <div class="dashboard-panel trend-panel">
+                <h3>产量趋势对比 (8:00 - 18:00)</h3>
+                <div class="chart-container" id="production-chart"></div>
+                <div class="chart-legend">
+                    <span class="legend-item plan"><span class="dot"></span>计划产量</span>
+                    <span class="legend-item actual"><span class="dot"></span>实际产量</span>
+                </div>
+            </div>
+
+            <div class="dashboard-panel kpi-panel">
+                <h3>关键绩效指标 (KPIs)</h3>
+                <div class="gauge-container">
+                    <div class="gauge-item">
+                        <div class="gauge-circle" id="oee-gauge" style="--percent: 85;">
+                            <span class="gauge-value" id="oee-value">85%</span>
+                        </div>
+                        <label>OEE 设备效率</label>
+                    </div>
+                    <div class="gauge-item">
+                        <div class="gauge-circle color-green" id="quality-gauge" style="--percent: 99;">
+                            <span class="gauge-value" id="quality-value">99%</span>
+                        </div>
+                        <label>全厂合格率</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-panel wip-panel">
+                <h3>在制品库存 (WIP)</h3>
+                <div class="bar-chart-y" id="wip-chart"></div>
+            </div>
+
+            <div class="dashboard-panel alarm-panel">
+                <h3>实时异常报警</h3>
+                <div class="alarm-list-container">
+                    <ul class="alarm-list" id="alarm-list"></ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Deep Dive Modal (Light Theme) -->
+    <div id="detail-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">×</button>
+            <div class="modal-header">
+                <h2 id="modal-title">工序详情</h2>
+                <div class="modal-meta">
+                    <span id="modal-manager">负责人: 张三</span>
+                    <span class="status-badge running" id="modal-status">运行中</span>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <!-- Left: Visual & Machines -->
+                <div class="machine-column">
+                    <h3>工位 / 设备实况</h3>
+                    <!-- MACHINE VISUALIZER -->
+                    <div class="machine-visual" id="machine-visual">
+                        <!-- IMG inserted by JS -->
+                    </div>
+
+                    <div id="machine-list" class="machine-list">
+                        <!-- Inserted by JS -->
+                    </div>
+                </div>
+
+                <!-- Right: Data Architecture -->
+                <div class="arch-column">
+                    <h3>数据采集架构</h3>
+                    <div class="arch-diagram">
+                        <div class="arch-layer cloud">
+                            <span>MES / SCADA 系统</span>
+                        </div>
+                        <div style="color:#d0d7de">⬇</div>
+                        <div class="arch-layer edge">
+                            <span>边缘网关 (Edge Gateway)</span>
+                        </div>
+                        <div style="color:#d0d7de">⬇ <span id="protocol-name">Modbus</span></div>
+                        <div class="arch-layer field" id="field-layer">
+                            <!-- Field devices inserted by JS -->
+                        </div>
+
+                        <div class="collection-info">
+                            <div class="info-item">
+                                <label>采集方式</label>
+                                <span class="tag" id="collection-type">自动采集</span>
+                            </div>
+                            <div class="info-item">
+                                <label>通信协议</label>
+                                <span class="tag" id="protocol-tag">Modbus TCP</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Inject image logic into modal render
+        const originalRender = renderModalContent;
+        renderModalContent = function (id) {
+            originalRender(id);
+            const visual = document.getElementById('machine-visual');
+            visual.innerHTML = `<img src="images/${id}_${id.includes('002') ? 'stamping' : id.includes('004') ? 'coating' : id.includes('005') ? 'assembly' : id.includes('006') ? 'qc' : 'packing'}.svg" alt="Machine Visual" />`;
+        }
+    </script>
+</body>
+
+</html>
